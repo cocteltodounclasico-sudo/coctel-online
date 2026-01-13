@@ -46,78 +46,91 @@
 
     <audio id="audioStream" crossorigin="anonymous"></audio>
 
-    <script>
-        const audio = document.getElementById('audioStream');
-        const btn = document.getElementById('mainButton');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
-        const vBars = document.querySelectorAll('.v-bar');
-        const volumeSlider = document.getElementById('volumeSlider');
+   <script>
+    const audio = document.getElementById('audioStream');
+    const btn = document.getElementById('mainButton');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const vBars = document.querySelectorAll('.v-bar');
+    const volumeSlider = document.getElementById('volumeSlider');
 
-        // DIRECCIÓN DE TU MYRADIOSTREAM CON PROXY DE SEGURIDAD
-        const serverURL = "http://s9.myradiostream.com:47566/;stream.mp3";
-        const secureProxy = "https://api.allorigins.win/raw?url=" + encodeURIComponent(serverURL);
-        const backupProxy = "https://corsproxy.io/?" + encodeURIComponent(serverURL);
+    // CONFIGURACIÓN PARA MYRADIOSTREAM GRATUITO
+    // Tu IP y puerto de siempre
+    const serverURL = "http://s9.myradiostream.com:47566/;stream.mp3";
+    
+    // Usamos un proxy que "limpia" la seguridad para que el celu lo acepte
+    const proxyUrl = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=60&url=" + encodeURIComponent(serverURL);
 
-        btn.addEventListener('click', function() {
-            if (audio.paused) {
-                // Primer intento con Proxy 1
-                audio.src = secureProxy;
-                audio.play().then(() => {
-                    toggleUI(true);
-                }).catch(() => {
-                    // Si falla, intento con Proxy 2
-                    console.log("Cambiando a ruta alternativa...");
-                    audio.src = backupProxy;
-                    audio.play().then(() => toggleUI(true));
-                });
-            } else {
-                audio.pause();
-                audio.src = ""; 
-                toggleUI(false);
-            }
-        });
-
-        function toggleUI(playing) {
-            playIcon.style.display = playing ? 'none' : 'block';
-            pauseIcon.style.display = playing ? 'block' : 'none';
-            if(playing) startVumetro(); else stopVumetro();
-        }
-
-        let vuInterval;
-        function startVumetro() {
-            vuInterval = setInterval(() => {
-                vBars.forEach(b => { b.style.height = (Math.random() * 35 + 5) + 'px'; });
-            }, 100);
-        }
-        function stopVumetro() {
-            clearInterval(vuInterval);
-            vBars.forEach(b => { b.style.height = '4px'; });
-        }
-
-        volumeSlider.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-
-        // Fondo animado elegante
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let pts = [];
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize); resize();
-        for(let i=0; i<40; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, vx:Math.random()*0.3-0.15, vy:Math.random()*0.3-0.15});
-        function anim() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = "rgba(212,175,55,0.2)";
-            pts.forEach(p => {
-                p.x+=p.vx; p.y+=p.vy;
-                if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0;
-                if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0;
-                ctx.beginPath(); ctx.arc(p.x,p.y,p.s,0,Math.PI*2); ctx.fill();
+    btn.addEventListener('click', function() {
+        if (audio.paused) {
+            // Intentamos con el proxy de Google (muy estable)
+            audio.src = proxyUrl;
+            
+            audio.play().then(() => {
+                actualizarInterfaz(true);
+            }).catch(error => {
+                console.log("Reintentando con proxy secundario...");
+                // Si falla, usamos este otro puente
+                audio.src = "https://cors-proxy.htmldriven.com/?url=" + encodeURIComponent(serverURL);
+                audio.play().then(() => actualizarInterfaz(true));
             });
-            requestAnimationFrame(anim);
+        } else {
+            audio.pause();
+            audio.src = ""; 
+            actualizarInterfaz(false);
         }
-        anim();
-    </script>
+    });
+
+    function actualizarInterfaz(isPlay) {
+        if (isPlay) {
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            startVumetro();
+        } else {
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            stopVumetro();
+        }
+    }
+
+    let vumetroInterval;
+    function startVumetro() {
+        vumetroInterval = setInterval(() => {
+            vBars.forEach(bar => {
+                bar.style.height = (Math.random() * 35 + 5) + 'px';
+            });
+        }, 100);
+    }
+
+    function stopVumetro() {
+        clearInterval(vumetroInterval);
+        vBars.forEach(bar => bar.style.height = '4px');
+    }
+
+    volumeSlider.addEventListener('input', (e) => {
+        audio.volume = e.target.value;
+    });
+
+    // Fondo animado (el que ya tenías)
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let pts = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    for(let i=0; i<40; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, vx:Math.random()*0.3-0.15, vy:Math.random()*0.3-0.15});
+    function anim() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = "rgba(212,175,55,0.2)";
+        pts.forEach(p => {
+            p.x+=p.vx; p.y+=p.vy;
+            if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0;
+            if(p.y<0)p.y=canvas.height; if(p.y>canvas.height)p.y=0;
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.s,0,Math.PI*2); ctx.fill();
+        });
+        requestAnimationFrame(anim);
+    }
+    anim();
+</script>
 </body>
 </html>
+
