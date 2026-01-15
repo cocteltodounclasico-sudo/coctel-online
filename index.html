@@ -55,19 +55,19 @@
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
         
-        // URL alternativa para evitar bloqueos de seguridad del servidor
+        // URL corregida para funcionar con HTTPS y evitar errores CORS
         const streamUrl = "https://s9.myradiostream.com/:47566/stream";
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Forzamos la recarga del stream para evitar cache
+                // Añadimos un parámetro de tiempo para saltar el cache
                 audio.src = streamUrl + "?t=" + Date.now(); 
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.error("Error de reproducción:", err);
-                    // Si falla, intentamos la URL básica como plan B
-                    audio.src = "http://s9.myradiostream.com:47566/;";
+                    console.error("Error capturado:", err);
+                    // Intento de recuperación si falla el primer formato
+                    audio.src = "https://s9.myradiostream.com/47566/listen.mp3";
                     audio.play();
                 });
             } else {
@@ -98,7 +98,7 @@
             audio.volume = e.target.value;
         });
 
-        // Partículas de fondo
+        // Fondo animado
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
@@ -120,5 +120,3 @@
     </script>
 </body>
 </html>
-
-
