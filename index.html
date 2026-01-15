@@ -56,7 +56,7 @@
         const vBars = document.querySelectorAll('.v-bar');
         
         // URL corregida para funcionar con HTTPS y evitar errores CORS
-        const streamUrl = "https://s9.myradiostream.com/:47566/;stream";
+        const streamUrl = "http://s9.myradiostream.com:47566/;";
         btn.addEventListener('click', function() {
             if (audio.paused) {
                 // Añadimos un parámetro de tiempo para saltar el cache
@@ -119,4 +119,5 @@
     </script>
 </body>
 </html>
+
 
