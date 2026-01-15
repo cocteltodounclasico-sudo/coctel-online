@@ -46,8 +46,7 @@
         </div>
     </div>
 
-    <audio id="audioStream" crossorigin="anonymous"></audio>
-
+    <audio id="audioStream"></audio>
     <script>
         const audio = document.getElementById('audioStream');
         const btn = document.getElementById('mainButton');
@@ -56,7 +55,7 @@
         const vBars = document.querySelectorAll('.v-bar');
         
         // MyRadioStream S9 Port 47566
-        const streamUrl = "//s9.myradiostream.com:47566/;";
+        const streamUrl = "https://s9.myradiostream.com/47566/listen.mp3";
         btn.addEventListener('click', function() {
             if (audio.paused) {
                 audio.src = streamUrl + Date.now(); 
@@ -115,4 +114,5 @@
     </script>
 </body>
 </html>
+
 
