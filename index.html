@@ -47,6 +47,7 @@
     </div>
 
     <audio id="audioStream"></audio>
+
     <script>
         const audio = document.getElementById('audioStream');
         const btn = document.getElementById('mainButton');
@@ -54,15 +55,20 @@
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
         
-        // MyRadioStream S9 Port 47566
-        const streamUrl = "https://s9.myradiostream.com/47566/listen.mp3";
+        // URL alternativa para evitar bloqueos de seguridad del servidor
+        const streamUrl = "https://s9.myradiostream.com/:47566/;stream.mp3";
+
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                audio.src = streamUrl + Date.now(); 
+                // Forzamos la recarga del stream para evitar cache
+                audio.src = streamUrl + "?t=" + Date.now(); 
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.log("Error de reproducción");
+                    console.error("Error de reproducción:", err);
+                    // Si falla, intentamos la URL básica como plan B
+                    audio.src = "http://s9.myradiostream.com:47566/;";
+                    audio.play();
                 });
             } else {
                 audio.pause();
@@ -114,5 +120,3 @@
     </script>
 </body>
 </html>
-
-
