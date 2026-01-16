@@ -60,15 +60,23 @@
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Usamos la URL segura que nos diste
-                audio.src = streamUrl; 
+                // Intentamos tres formatos diferentes de Listen2MyRadio en cadena
+                // Reemplazamos el primer intento con el formato de IP directa si lo tuvieras
+                audio.src = "https://coctelonline.radio12345.com/;"; 
+                
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.error("Error con Listen2MyRadio:", err);
-                    // Intento alternativo por si el servidor usa puerto directo
-                    audio.src = "https://coctelonline.radio12345.com/;stream";
-                    audio.play();
+                    console.error("Fallo 1, reintentando...");
+                    audio.src = "https://coctelonline.radio12345.com/stream?type=http";
+                    audio.play().then(() => {
+                        toggleUI(true);
+                    }).catch(err2 => {
+                        console.error("Fallo 2, reintentando formato directo...");
+                        // Este es el formato que a veces salta el error de 'No supported source'
+                        audio.src = "http://coctelonline.radio12345.com:8000/;stream.mp3";
+                        audio.play().then(() => toggleUI(true));
+                    });
                 });
             } else {
                 audio.pause();
@@ -119,6 +127,7 @@
     </script>
 </body>
 </html>
+
 
 
 
