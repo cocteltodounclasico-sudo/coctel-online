@@ -55,19 +55,20 @@
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
         
-        // --- LA CLAVE: PROXY DE SHOUTCAST PARA HTTPS ---
-        // Este servidor recibe tu señal HTTP y la entrega por HTTPS
-        const streamUrl = "https://shoutca.st/secure/cocteltodounclasico";
+        // URL de Listen2MyRadio con HTTPS nativo
+        const streamUrl = "https://coctelonline.radio12345.com/stream";
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Esta es la línea clave con el túnel nuevo:
-                audio.src = "https://s9.myradiostream.com/:47566/stream?type=http&nocache=" + Date.now(); 
-                
+                // Usamos la URL segura que nos diste
+                audio.src = streamUrl; 
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.error("Error con el proxy:", err);
+                    console.error("Error con Listen2MyRadio:", err);
+                    // Intento alternativo por si el servidor usa puerto directo
+                    audio.src = "https://coctelonline.radio12345.com/;stream";
+                    audio.play();
                 });
             } else {
                 audio.pause();
@@ -118,5 +119,6 @@
     </script>
 </body>
 </html>
+
 
 
