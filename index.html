@@ -61,16 +61,13 @@
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Probamos con el formato más compatible de proxy
-                audio.src = "https://s9.myradiostream.com/:47566/;stream"; 
+                // Esta es la línea clave con el túnel nuevo:
+                audio.src = "https://corsproxy.io/?http://s9.myradiostream.com:47566/;"; 
                 
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.error("Fallo 1, intentando Proxy 2...");
-                    // Si el anterior falla, usamos este que es infalible para HTTPS
-                    audio.src = "https://cors-proxy.htmldriven.com/?url=http://s9.myradiostream.com:47566/;";
-                    audio.play().then(()=> toggleUI(true));
+                    console.error("Error con el proxy:", err);
                 });
             } else {
                 audio.pause();
@@ -121,3 +118,4 @@
     </script>
 </body>
 </html>
+
