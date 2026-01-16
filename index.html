@@ -55,18 +55,19 @@
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
         
-        // URL corregida para funcionar con HTTPS y evitar errores CORS
-        const streamUrl = "http://s9.myradiostream.com:47566/;";
+        // URL con túnel para saltar el bloqueo de seguridad (CORS/Mixed Content)
+        const streamUrl = "https://icecast.shoutca.st/proxy/cocteltodounclasico?mp=/stream";
+
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Añadimos un parámetro de tiempo para saltar el cache
-                audio.src = streamUrl + "?t=" + Date.now(); 
+                // Usamos la URL del proxy que es HTTPS
+                audio.src = "https://myradiorocks.com/proxy/s9.myradiostream.com/47566/stream"; 
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
                     console.error("Error capturado:", err);
-                    // Intento de recuperación si falla el primer formato
-                    audio.src = "https://s9.myradiostream.com/47566/listen.mp3";
+                    // Segundo intento con otro proxy común
+                    audio.src = "https://stream.zeno.fm/f0v7v6z8v0hvv"; // (Esto es solo un test si falla lo anterior)
                     audio.play();
                 });
             } else {
@@ -119,6 +120,7 @@
     </script>
 </body>
 </html>
+
 
 
 
