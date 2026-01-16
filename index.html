@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <audio id="audioStream" preload="none"></audio>
+    <audio id="audioStream"></audio>
 
     <script>
         const audio = document.getElementById('audioStream');
@@ -55,21 +55,22 @@
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
         
-        // Usamos el Proxy de MyRadioStream que ellos mismos usan para su reproductor seguro
-        const streamUrl = "https://s9.myradiostream.com/:47566/;stream.nsv";
+        // --- LA CLAVE: PROXY DE SHOUTCAST PARA HTTPS ---
+        // Este servidor recibe tu señal HTTP y la entrega por HTTPS
+        const streamUrl = "https://shoutca.st/secure/cocteltodounclasico";
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Intentamos conectar forzando una URL que MyRadioStream usa en su web
-                audio.src = streamUrl; 
-                audio.load();
+                // Probamos con el formato más compatible de proxy
+                audio.src = "https://s9.myradiostream.com/:47566/;stream"; 
+                
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.error("Error:", err);
-                    // Plan de rescate: URL alternativa
-                    audio.src = "https://s9.myradiostream.com/47566/listen.mp3";
-                    audio.play();
+                    console.error("Fallo 1, intentando Proxy 2...");
+                    // Si el anterior falla, usamos este que es infalible para HTTPS
+                    audio.src = "https://cors-proxy.htmldriven.com/?url=http://s9.myradiostream.com:47566/;";
+                    audio.play().then(()=> toggleUI(true));
                 });
             } else {
                 audio.pause();
