@@ -62,7 +62,7 @@
         btn.addEventListener('click', function() {
             if (audio.paused) {
                 // Esta es la línea clave con el túnel nuevo:
-                audio.src = "https://corsproxy.io/?http://s9.myradiostream.com:47566/;"; 
+                audio.src = "https://s9.myradiostream.com/:47566/stream?type=http&nocache=" + Date.now(); 
                 
                 audio.play().then(() => {
                     toggleUI(true);
@@ -118,4 +118,5 @@
     </script>
 </body>
 </html>
+
 
