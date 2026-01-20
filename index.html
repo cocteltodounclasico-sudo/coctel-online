@@ -9,7 +9,7 @@
         :root { --color-oro: #d4af37; --color-oscuro: #0a0a0a; --color-gris: #888; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--color-oscuro); color: white; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); }
-        .main-card { background: rgba(21, 21, 21, 0.85); backdrop-filter: blur(10px); padding: 50px; border-radius: 40px; border: 1px solid rgba(212, 175, 55, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.8); text-align: center; max-width: 400px; width: 90%; }
+        .main-card { background: rgba(21, 21, 21, 0.85); backdrop-filter: blur(10px); padding: 50px; border-radius: 40px; border: 1px solid rgba(212, 175, 55, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.8); text-align: center; max-width: 400px; width: 90%; position: relative; }
         .logo-container h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--color-oro); margin: 0; letter-spacing: -2px; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .subtitulo { letter-spacing: 8px; font-size: 0.8rem; margin-bottom: 30px; color: var(--color-gris); text-transform: uppercase; }
         .vumetro { display: flex; justify-content: center; gap: 4px; height: 40px; margin-bottom: 25px; align-items: flex-end; }
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <audio id="audioStream"></audio>
+    <audio id="audioStream" crossorigin="anonymous"></audio>
 
     <script>
         const audio = document.getElementById('audioStream');
@@ -54,33 +54,29 @@
         const playIcon = document.getElementById('playIcon');
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
+        const volumeSlider = document.getElementById('volumeSlider');
         
-        // URL de Listen2MyRadio con HTTPS nativo
-        const streamUrl = "https://coctelonline.radio12345.com/stream";
+        // --- LINK PROFESIONAL ESTUDIOSMAX ---
+        const streamUrl = "https://streaming01.shockmedia.com.ar/8452/stream";
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
-                // Intentamos tres formatos diferentes de Listen2MyRadio en cadena
-                // Reemplazamos el primer intento con el formato de IP directa si lo tuvieras
-                audio.src = "https://coctelonline.radio12345.com/;"; 
+                // Si es la primera vez o se detuvo, cargamos la URL
+                if (!audio.src) {
+                    audio.src = streamUrl;
+                }
                 
                 audio.play().then(() => {
                     toggleUI(true);
                 }).catch(err => {
-                    console.error("Fallo 1, reintentando...");
-                    audio.src = "https://coctelonline.radio12345.com/stream?type=http";
-                    audio.play().then(() => {
-                        toggleUI(true);
-                    }).catch(err2 => {
-                        console.error("Fallo 2, reintentando formato directo...");
-                        // Este es el formato que a veces salta el error de 'No supported source'
-                        audio.src = "http://coctelonline.radio12345.com:8000/;stream.mp3";
-                        audio.play().then(() => toggleUI(true));
-                    });
+                    console.error("Error al reproducir:", err);
                 });
             } else {
                 audio.pause();
+                // Limpiamos el src al pausar para que al dar play de nuevo 
+                // enganche la transmisión en vivo actual y no el buffer viejo
                 audio.src = ""; 
+                audio.load();
                 toggleUI(false);
             }
         });
@@ -93,19 +89,25 @@
 
         let vuInterval;
         function startVumetro() {
+            if(vuInterval) clearInterval(vuInterval);
             vuInterval = setInterval(() => {
-                vBars.forEach(b => { b.style.height = (Math.random() * 38 + 4) + 'px'; });
+                vBars.forEach(b => {
+                    // Animación aleatoria para los vúmetros
+                    b.style.height = (Math.random() * 38 + 4) + 'px';
+                });
             }, 100);
         }
+
         function stopVumetro() {
-            if(vuInterval) clearInterval(vuInterval);
+            clearInterval(vuInterval);
             vBars.forEach(b => { b.style.height = '4px'; });
         }
 
-        document.getElementById('volumeSlider').addEventListener('input', (e) => {
+        volumeSlider.addEventListener('input', (e) => {
             audio.volume = e.target.value;
         });
 
+        // Fondo animado de partículas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
@@ -127,7 +129,3 @@
     </script>
 </body>
 </html>
-
-
-
-
