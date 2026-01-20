@@ -15,10 +15,10 @@
         .logo-container h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; color: var(--color-oro); margin: 0; letter-spacing: -1px; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .subtitulo { letter-spacing: 6px; font-size: 0.75rem; margin-bottom: 20px; color: var(--color-gris); text-transform: uppercase; }
 
-        /* Estilo para el Tema y Artista */
+        /* Estilo para el Texto Fijo de la Radio */
         #now-playing { height: 50px; margin-bottom: 20px; display: flex; flex-direction: column; justify-content: center; border-top: 1px solid rgba(212, 175, 55, 0.1); border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding: 10px 0; }
-        #track-title { font-weight: 600; color: #fff; font-size: 0.95rem; display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-        #track-artist { color: var(--color-oro); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        #track-title { font-weight: 600; color: #fff; font-size: 1rem; letter-spacing: 2px; }
+        #track-artist { color: var(--color-oro); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; margin-top: 2px; }
 
         .vumetro { display: flex; justify-content: center; gap: 5px; height: 50px; margin-bottom: 25px; align-items: flex-end; }
         .v-bar { width: 7px; background: linear-gradient(to top, #866d1d, var(--color-oro)); height: 4px; border-radius: 3px; transition: height 0.1s ease-out; }
@@ -42,7 +42,7 @@
         </div>
 
         <div id="now-playing">
-            <span id="track-title">Cargando información...</span>
+            <span id="track-title">LA MEJOR MÚSICA</span>
             <span id="track-artist">COCTEL ON-LINE</span>
         </div>
         
@@ -74,26 +74,8 @@
         const playIcon = document.getElementById('playIcon');
         const pauseIcon = document.getElementById('pauseIcon');
         const vBars = document.querySelectorAll('.v-bar');
-        const titleEl = document.getElementById('track-title');
-        const artistEl = document.getElementById('track-artist');
         
         const streamUrl = "https://streaming01.shockmedia.com.ar/8452/stream";
-        const statsUrl = "https://streaming01.shockmedia.com.ar/cp/get_info.php?p=8452";
-
-        // Función para obtener metadata
-        async function updateMetadata() {
-            try {
-                const response = await fetch(statsUrl);
-                const data = await response.json();
-                if (data && data.title) {
-                    const parts = data.title.split(' - ');
-                    titleEl.innerText = parts[1] || data.title;
-                    artistEl.innerText = parts[0] || "Cóctel Online";
-                }
-            } catch (e) { console.log("Metadata no disponible"); }
-        }
-        setInterval(updateMetadata, 15000);
-        updateMetadata();
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
@@ -123,7 +105,6 @@
 
         document.getElementById('volumeSlider').addEventListener('input', (e) => audio.volume = e.target.value);
 
-        // --- SISTEMA DE VINILOS "HIGH DEFINITION" ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let vinyls = [];
@@ -139,7 +120,7 @@
                 this.speed = Math.random() * 0.4 + 0.15;
                 this.rotation = 0;
                 this.rotSpeed = (Math.random() - 0.5) * 0.015;
-                this.opacity = Math.random() * 0.3 + 0.1;
+                this.opacity = Math.random() * 0.25 + 0.1;
             }
             update() {
                 this.y -= this.speed;
@@ -152,7 +133,6 @@
                 ctx.rotate(this.rotation);
                 ctx.globalAlpha = this.opacity;
                 
-                // Cuerpo del Disco (Negro Profundo con degradado radial para volumen)
                 let grad = ctx.createRadialGradient(0,0,0,0,0,this.size);
                 grad.addColorStop(0, '#222');
                 grad.addColorStop(0.8, '#050505');
@@ -162,7 +142,6 @@
                 ctx.fillStyle = grad;
                 ctx.fill();
                 
-                // Surcos HD
                 ctx.strokeStyle = "rgba(255,255,255,0.08)";
                 ctx.lineWidth = 0.5;
                 for(let i=1; i<12; i++) {
@@ -171,26 +150,23 @@
                     ctx.stroke();
                 }
 
-                // Brillo de luz (Reflejo radial típico del vinilo)
                 ctx.beginPath();
                 let highlight = ctx.createConicGradient(0, 0, 0);
                 highlight.addColorStop(0, "transparent");
-                highlight.addColorStop(0.1, "rgba(255,255,255,0.05)");
+                highlight.addColorStop(0.1, "rgba(255,255,255,0.06)");
                 highlight.addColorStop(0.2, "transparent");
                 highlight.addColorStop(0.5, "transparent");
-                highlight.addColorStop(0.6, "rgba(255,255,255,0.05)");
+                highlight.addColorStop(0.6, "rgba(255,255,255,0.06)");
                 highlight.addColorStop(0.7, "transparent");
                 ctx.fillStyle = highlight;
                 ctx.arc(0, 0, this.size, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Centro del disco (Oro Premium)
                 ctx.beginPath();
                 ctx.arc(0, 0, this.size * 0.35, 0, Math.PI * 2);
                 ctx.fillStyle = "#d4af37";
                 ctx.fill();
                 
-                // Agujero central con sombra
                 ctx.beginPath();
                 ctx.arc(0, 0, this.size * 0.06, 0, Math.PI * 2);
                 ctx.fillStyle = "#000";
