@@ -4,26 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cóctel Todo Un Clásico | On-Line</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --color-oro: #d4af37; --color-oscuro: #0a0a0a; --color-gris: #888; }
+        :root { --color-oro: #d4af37; --color-oscuro: #000000; --color-gris: #888; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--color-oscuro); color: white; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
         
-        /* Fondo con textura de Vinilo Fijo (Cero consumo de CPU) */
-        .bg-fixed { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(20,20,20,1) 0%, rgba(0,0,0,1) 100%),
-                repeating-radial-gradient(circle at 50% 50%, #111 0px, #111 1px, #0a0a0a 2px, #0a0a0a 3px);
-            opacity: 0.8;
-        }
-
         .main-card { 
-            background: rgba(10, 10, 10, 0.95); 
+            background: #0a0a0a; 
             padding: 40px; border-radius: 40px; 
             border: 1px solid rgba(212, 175, 55, 0.2); 
-            text-align: center; max-width: 380px; width: 85%; z-index: 10; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            text-align: center; max-width: 380px; width: 85%;
         }
 
         .logo-container h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--color-oro); margin: 0; }
@@ -36,21 +26,18 @@
         .btn-play { 
             background: var(--color-oro); border: none; width: 90px; height: 90px; border-radius: 50%; 
             cursor: pointer; display: flex; align-items: center; justify-content: center; 
-            margin: 0 auto 20px; transition: transform 0.2s;
+            margin: 0 auto 20px;
         }
-        .btn-play svg { fill: var(--color-oscuro); width: 45px; height: 45px; }
-        .btn-play:active { transform: scale(0.9); }
+        .btn-play svg { fill: #000; width: 45px; height: 45px; }
 
         .vol-control { margin-bottom: 20px; }
         input[type=range] { accent-color: var(--color-oro); width: 140px; cursor: pointer; }
 
-        .staff { font-size: 0.75rem; color: var(--color-gris); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-top: 10px; }
-        .staff strong { color: #aaa; display: block; margin-top: 5px; font-weight: 400; }
+        .staff { font-size: 0.75rem; color: var(--color-gris); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .staff strong { color: #aaa; display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
-    <div class="bg-fixed"></div>
-    
     <div class="main-card">
         <div class="logo-container">
             <h1>CÓCTEL</h1>
@@ -77,26 +64,27 @@
         </div>
     </div>
 
-    <audio id="audioStream" preload="none" crossorigin="anonymous"></audio>
+    <audio id="audioStream" crossorigin="anonymous"></audio>
 
     <script>
         const audio = document.getElementById('audioStream');
         const btn = document.getElementById('mainButton');
         const playIcon = document.getElementById('playIcon');
         const pauseIcon = document.getElementById('pauseIcon');
+        // Usamos la URL limpia que funcionó antes
         const streamUrl = "https://streaming01.shockmedia.com.ar/8452/stream?type=.mp3";
 
         btn.addEventListener('click', function() {
             if (audio.paused) {
+                // Forzamos el refresco del buffer
                 audio.src = streamUrl + "&t=" + new Date().getTime();
-                audio.load();
                 audio.play().then(() => {
                     playIcon.style.display = 'none';
                     pauseIcon.style.display = 'block';
                 });
             } else {
                 audio.pause();
-                audio.src = "";
+                audio.src = ""; 
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
             }
