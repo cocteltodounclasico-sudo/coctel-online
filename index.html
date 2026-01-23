@@ -4,103 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cóctel Todo Un Clásico</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             background-color: #000;
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
+            color: #d4af37;
+            font-family: serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
         .container {
             text-align: center;
             border: 1px solid #d4af37;
-            padding: 35px;
-            border-radius: 15px;
-            background-color: #0a0a0a;
-            max-width: 320px;
-            width: 85%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 30px;
+            border-radius: 10px;
         }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: #d4af37;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .locutores {
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            padding-bottom: 15px;
-        }
-        .nombre {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: #d4af37;
-            display: block;
-            font-size: 1.05rem;
-            margin: 4px 0;
-            letter-spacing: 1px;
-        }
-        /* REPRODUCTOR: Sin filtros de color para evitar bloqueos */
-        .player-area {
-            margin: 25px 0;
-        }
-        audio {
-            width: 100%;
-        }
-        .support {
-            margin-top: 20px;
-        }
-        .frase {
-            font-size: 0.7rem;
-            color: #d4af37;
-            margin-bottom: 15px;
-            display: block;
-            font-style: italic;
-        }
-        .btn-cafecito {
-            text-decoration: none;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.8rem;
+        h1 { font-size: 3rem; margin: 10px 0; }
+        p { font-style: italic; margin: 5px 0; color: #d4af37; font-size: 1.2rem; }
+        audio { margin: 20px 0; width: 100%; }
+        .btn {
             display: inline-block;
-            transition: 0.3s;
-        }
-        .btn-cafecito:hover {
-            background-color: #d4af37;
-            color: #000;
+            margin-top: 15px;
+            color: #d4af37;
+            text-decoration: none;
+            border: 1px solid #d4af37;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            font-family: sans-serif;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">Cóctel</div>
-        
-        <div class="locutores">
-            <span class="nombre">Pedro Aníbal Mansilla</span>
-            <span class="nombre">Pablo Shefer</span>
-        </div>
+        <h1>Cóctel</h1>
+        <p>Pedro Aníbal Mansilla</p>
+        <p>Pablo Shefer</p>
 
-        <div class="player-area">
-            <audio controls>
-                <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
-                Tu navegador no soporta el audio.
-            </audio>
-        </div>
+        <audio controls>
+            <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
+            Tu navegador no soporta el audio.
+        </audio>
 
-        <div class="support">
-            <span class="frase">"Ayudanos a mantener el vinilo girando"</span>
-            <a href="https://cafecito.app/coctelon-line" target="_blank" class="btn-cafecito">
-                ☕ Invitanos un Cafecito
-            </a>
+        <div style="margin-top:20px;">
+            <small style="display:block; margin-bottom:10px;">"Ayudanos a mantener el vinilo girando"</small>
+            <a href="https://cafecito.app/coctelon-line" target="_blank" class="btn">☕ Invitanos un Cafecito</a>
         </div>
     </div>
 </body>
