@@ -3,96 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cóctel Todo Un Clásico | On-Line</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Cóctel Todo Un Clásico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
     <style>
-        :root { --color-oro: #d4af37; --color-oscuro: #000000; --color-gris: #888; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--color-oscuro); color: white; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        
-        .main-card { 
-            background: #0a0a0a; 
-            padding: 40px; border-radius: 40px; 
-            border: 1px solid rgba(212, 175, 55, 0.2); 
-            text-align: center; max-width: 380px; width: 85%;
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #d4af37;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-
-        .logo-container h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--color-oro); margin: 0; }
-        .subtitulo { letter-spacing: 5px; font-size: 0.7rem; color: var(--color-gris); text-transform: uppercase; margin-bottom: 25px; }
-        
-        #info-box { border-top: 1px solid rgba(212,175,55,0.1); border-bottom: 1px solid rgba(212,175,55,0.1); padding: 15px 0; margin-bottom: 25px; }
-        .info-title { font-weight: 600; color: #fff; display: block; letter-spacing: 1px; }
-        .info-sub { color: var(--color-oro); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; }
-
-        .btn-play { 
-            background: var(--color-oro); border: none; width: 90px; height: 90px; border-radius: 50%; 
-            cursor: pointer; display: flex; align-items: center; justify-content: center; 
-            margin: 0 auto 20px;
+        .container {
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 40px 20px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
         }
-        .btn-play svg { fill: #000; width: 45px; height: 45px; }
-
-        .vol-control { margin-bottom: 20px; }
-        input[type=range] { accent-color: var(--color-oro); width: 140px; cursor: pointer; }
-
-        .staff { font-size: 0.75rem; color: var(--color-gris); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
-        .staff strong { color: #aaa; display: block; margin-top: 5px; }
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .slogan {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            color: #fff;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        .locutores {
+            margin-bottom: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 15px 0;
+        }
+        .nombre {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            display: block;
+            margin: 5px 0;
+            letter-spacing: 1px;
+        }
+        .player-box {
+            margin: 20px 0;
+            background: #111;
+            padding: 10px;
+            border-radius: 50px;
+        }
+        audio {
+            width: 100%;
+            height: 40px;
+        }
+        .support-area {
+            margin-top: 30px;
+        }
+        .frase {
+            font-size: 0.75rem;
+            color: #d4af37;
+            font-style: italic;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .btn-cafecito {
+            display: inline-block;
+            text-decoration: none;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: 0.3s ease;
+        }
+        .btn-cafecito:hover {
+            background: #d4af37;
+            color: #000;
+        }
     </style>
 </head>
 <body>
-    <div class="main-card">
-        <div class="logo-container">
-            <h1>CÓCTEL</h1>
-            <div class="subtitulo">Todo Un Clásico</div>
-        </div>
-        
-        <div id="info-box">
-            <span class="info-title">LA MEJOR MÚSICA</span>
-            <span class="info-sub">EN VIVO 24HS</span>
-        </div>
 
-        <button class="btn-play" id="mainButton">
-            <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
+    <div class="container">
+        <div class="logo">Cóctel</div>
+        <div class="slogan">TODO UN CLÁSICO</div>
 
-        <div class="vol-control">
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.8">
+        <div class="locutores">
+            <span class="nombre">Pedro Aníbal Mansilla</span>
+            <span class="nombre">Pablo Shefer</span>
         </div>
 
-        <div class="staff">
-            Voces: Pedro Aníbal Mansilla & Pablo Shefer
-            <strong>www.cocteltodounclasico.com.ar</strong>
+        <div class="player-box">
+            <audio controls preload="none">
+                <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
+                Tu navegador no soporta el audio.
+            </audio>
+        </div>
+
+        <div class="support-area">
+            <span class="frase">"Ayudanos a mantener el vinilo girando"</span>
+            <a href="https://cafecito.app/coctelon-line" target="_blank" class="btn-cafecito">
+                ☕ Invitanos un Cafecito
+            </a>
         </div>
     </div>
 
-    <audio id="audioStream" crossorigin="anonymous"></audio>
-
-    <script>
-        const audio = document.getElementById('audioStream');
-        const btn = document.getElementById('mainButton');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
-        // Usamos la URL limpia que funcionó antes
-        const streamUrl = "https://streaming01.shockmedia.com.ar/8452/stream?type=.mp3";
-
-        btn.addEventListener('click', function() {
-            if (audio.paused) {
-                // Forzamos el refresco del buffer
-                audio.src = streamUrl + "&t=" + new Date().getTime();
-                audio.play().then(() => {
-                    playIcon.style.display = 'none';
-                    pauseIcon.style.display = 'block';
-                });
-            } else {
-                audio.pause();
-                audio.src = ""; 
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
-            }
-        });
-
-        document.getElementById('volumeSlider').addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-    </script>
 </body>
 </html>
