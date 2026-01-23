@@ -19,52 +19,64 @@
         .container {
             text-align: center;
             border: 1px solid #d4af37;
-            padding: 40px;
-            border-radius: 10px;
+            padding: 35px;
+            border-radius: 15px;
             background-color: #0a0a0a;
-            max-width: 350px;
-            width: 90%;
+            max-width: 320px;
+            width: 85%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             color: #d4af37;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
         .locutores {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding-bottom: 15px;
         }
         .nombre {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: #d4af37;
             display: block;
-            font-size: 1.1rem;
-            margin: 5px 0;
+            font-size: 1.05rem;
+            margin: 4px 0;
+            letter-spacing: 1px;
         }
-        /* REPRODUCTOR 1.6: Sin filtros, sin cambios. Pureza total. */
+        /* REPRODUCTOR: Sin filtros de color para evitar bloqueos */
+        .player-area {
+            margin: 25px 0;
+        }
         audio {
             width: 100%;
-            margin: 20px 0;
         }
         .support {
-            margin-top: 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            padding-top: 20px;
+            margin-top: 20px;
         }
         .frase {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #d4af37;
             margin-bottom: 15px;
             display: block;
+            font-style: italic;
         }
-        .btn-link {
+        .btn-cafecito {
             text-decoration: none;
             color: #d4af37;
             border: 1px solid #d4af37;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 30px;
             font-size: 0.8rem;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn-cafecito:hover {
+            background-color: #d4af37;
+            color: #000;
         }
     </style>
 </head>
@@ -77,15 +89,17 @@
             <span class="nombre">Pablo Shefer</span>
         </div>
 
-        <audio controls>
-            <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
-            Tu navegador no soporta el audio.
-        </audio>
+        <div class="player-area">
+            <audio controls>
+                <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
+                Tu navegador no soporta el audio.
+            </audio>
+        </div>
 
         <div class="support">
             <span class="frase">"Ayudanos a mantener el vinilo girando"</span>
-            <a href="https://cafecito.app/coctelon-line" target="_blank" class="btn-link">
-                Invitanos un Cafecito
+            <a href="https://cafecito.app/coctelon-line" target="_blank" class="btn-cafecito">
+                ☕ Invitanos un Cafecito
             </a>
         </div>
     </div>
