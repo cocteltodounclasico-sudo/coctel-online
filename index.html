@@ -21,7 +21,7 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
             padding: 40px 20px;
             border-radius: 20px;
-            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            background-color: #050505;
             max-width: 350px;
             width: 90%;
             box-shadow: 0 15px 35px rgba(0,0,0,0.8);
@@ -54,15 +54,13 @@
             margin: 5px 0;
             letter-spacing: 1px;
         }
+        /* REPRODUCTOR ESTÁNDAR (Como en la 1.6) */
         .player-box {
-            margin: 20px 0;
-            background: #111;
-            padding: 10px;
-            border-radius: 50px;
+            margin: 25px 0;
         }
         audio {
             width: 100%;
-            height: 40px;
+            height: 45px;
         }
         .support-area {
             margin-top: 30px;
@@ -82,11 +80,6 @@
             padding: 12px 25px;
             border-radius: 30px;
             font-size: 0.85rem;
-            transition: 0.3s ease;
-        }
-        .btn-cafecito:hover {
-            background: #d4af37;
-            color: #000;
         }
     </style>
 </head>
@@ -102,7 +95,7 @@
         </div>
 
         <div class="player-box">
-            <audio controls preload="none">
+            <audio controls crossorigin="anonymous">
                 <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
                 Tu navegador no soporta el audio.
             </audio>
