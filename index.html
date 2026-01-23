@@ -2,57 +2,30 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cóctel Todo Un Clásico</title>
+    <title>Cóctel</title>
     <style>
-        body {
-            margin: 0;
-            background-color: #000;
-            color: #d4af37;
-            font-family: serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-        .container {
-            text-align: center;
-            border: 1px solid #d4af37;
-            padding: 30px;
-            border-radius: 10px;
-        }
-        h1 { font-size: 3rem; margin: 10px 0; }
-        p { font-style: italic; margin: 5px 0; color: #d4af37; font-size: 1.2rem; }
-        audio { margin: 20px 0; width: 100%; }
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            color: #d4af37;
-            text-decoration: none;
-            border: 1px solid #d4af37;
-            padding: 8px 15px;
-            font-size: 0.8rem;
-            border-radius: 5px;
-            font-family: sans-serif;
-        }
+        body { background: #000; color: #d4af37; text-align: center; padding-top: 50px; font-family: sans-serif; }
+        h1 { font-size: 3rem; }
+        .locutores { font-style: italic; margin-bottom: 20px; }
+        audio { width: 300px; margin: 20px; }
+        .apoyo { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; }
+        a { color: #d4af37; text-decoration: none; border: 1px solid #d4af37; padding: 10px; border-radius: 5px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cóctel</h1>
-        <p>Pedro Aníbal Mansilla</p>
-        <p>Pablo Shefer</p>
+    <h1>Cóctel</h1>
+    <div class="locutores">
+        Pedro Aníbal Mansilla<br>
+        Pablo Shefer
+    </div>
 
-        <audio controls>
-            <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
-            Tu navegador no soporta el audio.
-        </audio>
+    <audio controls>
+        <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
+    </audio>
 
-        <div style="margin-top:20px;">
-            <small style="display:block; margin-bottom:10px;">"Ayudanos a mantener el vinilo girando"</small>
-            <a href="https://cafecito.app/coctelon-line" target="_blank" class="btn">☕ Invitanos un Cafecito</a>
-        </div>
+    <div class="apoyo">
+        <p style="font-size: 0.7rem;">"Ayudanos a mantener el vinilo girando"</p>
+        <a href="https://cafecito.app/coctelon-line" target="_blank">☕ Invitanos un Cafecito</a>
     </div>
 </body>
 </html>
