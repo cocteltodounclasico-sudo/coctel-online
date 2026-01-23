@@ -54,7 +54,6 @@
             margin: 5px 0;
             letter-spacing: 1px;
         }
-        /* REPRODUCTOR ESTÁNDAR (Como en la 1.6) */
         .player-box {
             margin: 25px 0;
         }
@@ -80,6 +79,11 @@
             padding: 12px 25px;
             border-radius: 30px;
             font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .btn-cafecito:hover {
+            background-color: #d4af37;
+            color: #000;
         }
     </style>
 </head>
@@ -95,8 +99,8 @@
         </div>
 
         <div class="player-box">
-            <audio controls crossorigin="anonymous">
-                <source src="https://stream.estudiosmax.com/8144/stream" type="audio/mpeg">
+            <audio controls>
+                <source src="https://streaming01.shockmedia.com.ar:8452/stream" type="audio/mpeg">
                 Tu navegador no soporta el audio.
             </audio>
         </div>
