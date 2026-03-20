@@ -2,16 +2,29 @@
 <html lang="es">
 <head>
     <style>
-/* Fondo Cóctel Versión 1.1: Tocadiscos con Luz de Ambiente Azul */
 body {
     background-color: #000;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                      url('https://images.unsplash.com/photo-1582268322699-2a91217f2ff8?q=80&w=2000&auto=format&fit=crop');
+    background-image: radial-gradient(circle, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px; /* Crea una trama de puntos dorados muy fina */
     background-attachment: fixed;
-    background-size: cover;
+}
+
+/* Opcional: Un logo gigante muy tenue al centro */
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    /* Aquí iría la URL de tu logo de Cóctel */
+    background-image: url('URL_DE_TU_LOGO_AQUÍ'); 
+    background-repeat: no-repeat;
     background-position: center;
-    color: #fff;
-    font-family: Arial, sans-serif;
+    background-size: contain;
+    opacity: 0.05; /* Casi invisible para que no tape el texto */
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 </style>
     <meta charset="UTF-8">
